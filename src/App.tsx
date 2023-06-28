@@ -4,7 +4,7 @@ import {Card} from "./ingredient/Card.tsx";
 function App() {
     const ingredients: Ingredient[] = [
         {
-            name: "tomatoe",
+            name: "tomato",
             group: "vegetable",
             minAge: 6
         },
@@ -18,12 +18,20 @@ function App() {
             group: "fruit",
             minAge: 6
         },
+        {
+            name: "chicken",
+            group: "protein",
+            minAge: 6
+        },
     ]
 
     return (
-        <div className="grid grid-cols-4 gap-4">
-            {ingredients.map((ingredient, i) => <><Card key={i} ingredient={ingredient}/><br/></>)}
-        </div>
+        <>
+            <h1 className="text-5xl"> Foodie App </h1>
+            <div className="container mx-auto py-10 grid grid-cols-4 gap-4">
+                {ingredients.map((ingredient, i) => <Card key={i} ingredient={ingredient}/>)}
+            </div>
+        </>
     )
 }
 

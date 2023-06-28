@@ -3,7 +3,19 @@ import reactLogo from "../assets/react.svg";
 type CardProps = { ingredient: Ingredient }
 
 export function Card({ingredient}: CardProps) {
-    const borderColor : string = ingredient.group == "vegetable" ? "border-green-500" : "border-yellow-500";
+
+    let borderColor: string;
+    switch (ingredient.group) {
+        case "fruit":
+            borderColor = "border-yellow-500";
+            break;
+        case "protein":
+            borderColor = "border-red-500";
+            break;
+        case "vegetable":
+            borderColor = "border-green-500";
+            break;
+    }
 
     return (
         <>
