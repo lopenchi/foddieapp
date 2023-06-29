@@ -19,7 +19,7 @@ export function Card({ingredient}: CardProps) {
 
     return (
         <>
-            <div
+            <div role="card"
                 className={"p-3 max-w-sm bg-white rounded-xl shadow-lg flex items-center space-x-4 border-l-4 " + borderColor}>
                 <div className="shrink-0">
                     <img className="h-12 w-12" src={reactLogo} alt="ChitChat Logo"/>
