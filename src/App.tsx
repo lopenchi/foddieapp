@@ -1,7 +1,8 @@
 import './App.css'
-import {Card} from "./ingredient/Card.tsx";
+import Card from "./ingredient/Card.tsx"
+import {JSX} from "react";
 
-function App() {
+const App = (): JSX.Element => {
     const ingredients: Ingredient[] = [
         {
             name: "tomato",
