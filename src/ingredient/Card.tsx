@@ -1,8 +1,9 @@
 import reactLogo from "../assets/react.svg";
+import {JSX} from "react";
 
 type CardProps = { ingredient: Ingredient }
 
-export function Card({ingredient}: CardProps) {
+const Card = ({ingredient}: CardProps): JSX.Element => {
 
     let borderColor: string;
     switch (ingredient.group) {
@@ -32,3 +33,5 @@ export function Card({ingredient}: CardProps) {
         </>
     )
 }
+
+export default Card
