@@ -1,6 +1,6 @@
 import {describe, expect, test} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {Card} from "../src/ingredient/Card";
+import {Card} from "../src/components/ingredient/Card";
 
 describe("Accordion test", () => {
     test("should show ingredient name", () => {
