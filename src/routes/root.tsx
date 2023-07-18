@@ -1,42 +1,38 @@
-import {Outlet} from "react-router-dom";
+import {Link, Outlet, useLoaderData} from "react-router-dom";
+import {getAllIngredients} from "../services/IngredientService.ts";
 
+export async function loader(): Promise<Ingredient[]> {
+    return await getAllIngredients();
+}
 export default function Root() {
+    const ingredients = useLoaderData() as Ingredient[];
+
     return (
         <>
             <div id="sidebar">
-                <h1>React Router Contacts</h1>
-                <div>
-                    <form id="search-form" role="search">
-                        <input
-                            id="q"
-                            aria-label="Search contacts"
-                            placeholder="Search"
-                            type="search"
-                            name="q"
-                        />
-                        <div
-                            id="search-spinner"
-                            aria-hidden
-                            hidden={true}
-                        />
-                        <div
-                            className="sr-only"
-                            aria-live="polite"
-                        ></div>
-                    </form>
-                    <form method="post">
-                        <button type="submit">New</button>
-                    </form>
-                </div>
+                <h1>React Router ingredients</h1>
                 <nav>
-                    <ul>
-                        <li>
-                            <a href={`/contacts/1`}>Your Name</a>
-                        </li>
-                        <li>
-                            <a href={`/contacts/2`}>Your Friend</a>
-                        </li>
-                    </ul>
+                    {ingredients.length ? (
+                        <ul>
+                            {ingredients.map((ingredient: Ingredient) => (
+                                <li key={ingredient.id}>
+                                    <Link to={`ingredients/${ingredient.name}`}>
+                                        {ingredient.name ? (
+                                            <>
+                                                {ingredient.name}
+                                            </>
+                                        ) : (
+                                            <i>No Name</i>
+                                        )}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>
+                            <i>No ingredients</i>
+                        </p>
+                    )}
                 </nav>
             </div>
             <div id="detail">
