@@ -13,7 +13,7 @@ const App = (): JSX.Element => {
     return (
         <>
             <h1 className="text-5xl"> Foodie App </h1>
-            <div className="container mx-auto py-10 grid grid-cols-4 gap-4">
+            <div className="container mx-auto py-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {ingredients.map((ingredient, i) => <Card key={i} ingredient={ingredient}/>)}
             </div>
         </>
