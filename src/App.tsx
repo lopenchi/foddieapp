@@ -1,35 +1,19 @@
 import './App.css'
-import Card from "./ingredient/Card.tsx"
-import {JSX} from "react";
+import Card from "./components/ingredient/Card.tsx"
+import {getAllIngredients} from "./services/IngredientService.ts"
+import {JSX, useEffect, useState} from "react";
 
 const App = (): JSX.Element => {
-    const ingredients: Ingredient[] = [
-        {
-            name: "tomato",
-            group: "vegetable",
-            minAge: 6
-        },
-        {
-            name: "avocado",
-            group: "vegetable",
-            minAge: 6
-        },
-        {
-            name: "banana",
-            group: "fruit",
-            minAge: 6
-        },
-        {
-            name: "chicken",
-            group: "protein",
-            minAge: 6
-        },
-    ]
+    const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+
+    useEffect(() => {
+        getAllIngredients().then(ingredients => setIngredients(ingredients));
+    }, []);
 
     return (
         <>
             <h1 className="text-5xl"> Foodie App </h1>
-            <div className="container mx-auto py-10 grid grid-cols-4 gap-4">
+            <div className="container mx-auto py-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {ingredients.map((ingredient, i) => <Card key={i} ingredient={ingredient}/>)}
             </div>
         </>
