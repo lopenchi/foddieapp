@@ -6,3 +6,7 @@ type Ingredient = {
     photo?: string
 }
 
+type List = {
+    id: string,
+    name: string,
+}

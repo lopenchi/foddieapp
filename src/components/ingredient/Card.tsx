@@ -1,9 +1,20 @@
 import reactLogo from "../../assets/react.svg";
-import {JSX} from "react";
+import {JSX, useEffect, useState} from "react";
+import {getIngredientById} from "../../services/IngredientService.ts";
+import {useParams} from "react-router-dom";
 
-type CardProps = { ingredient: Ingredient }
+const Card = ({ingredientData}: { ingredientData?: Ingredient }): JSX.Element => {
 
-const Card = ({ingredient}: CardProps): JSX.Element => {
+    const [ingredient, setIngredient] = useState<Ingredient | undefined>(ingredientData);
+    const {ingredientId} = useParams();
+
+    useEffect(() => {
+        if (ingredientId != null) {
+            getIngredientById(ingredientId).then(ing => setIngredient(ing));
+        }
+    }, [ingredientId]);
+
+    if (!ingredient) return <></>;
 
     let borderColor: string;
     switch (ingredient.group) {
@@ -22,14 +33,22 @@ const Card = ({ingredient}: CardProps): JSX.Element => {
 
     return (
         <>
-            <div role="card"
-                className={"p-3 max-w-sm bg-white rounded-xl shadow-lg flex items-center space-x-4 border-l-4 " + borderColor}>
-                <div className="shrink-0">
-                    <img className="h-12 w-12" src={photo} alt="ChitChat Logo"/>
+            <div role="card" className={"p-3 w-96 bg-white rounded-xl shadow-lg space-x-4 border-l-4 " + borderColor}>
+                <div className="flex flex-row items-center p-4 pb-0">
+                    <img src={photo} alt="" className="h-20 w-20 flex-none rounded-full"/>
+                    <div className="ml-4 flex-auto basis-1/2">
+                        <div className="font-medium text-xl text-black">{ingredient.name}</div>
+                        <div className="mt-1 text-slate-500">{ingredient.group} </div>
+                        <div className="mt-1 text-slate-500">{ingredient.minAge} months</div>
+                    </div>
                 </div>
-                <div>
-                    <div className="text-xl font-medium text-black"> {ingredient.name}</div>
-                    <div className="font-thin text-black"> {ingredient.group} - {ingredient.minAge} months</div>
+                <div className="flex justify-end gap-4 p-4">
+                    <div
+                        className="pointer-events-auto rounded-md bg-indigo-600 px-3 py-2 font-semibold leading-5 text-white hover:bg-indigo-500">Edit
+                    </div>
+                    <div
+                        className="pointer-events-auto rounded-md px-4 py-2 text-center font-medium bg-red-500 text-white hover:bg-red-400">Delete
+                    </div>
                 </div>
             </div>
         </>

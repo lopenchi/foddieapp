@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Root from "./routes/root.tsx";
+import App, {loader as rootLoader} from "./App.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
-import App from "./App.tsx";
 
 import {
     createBrowserRouter,
@@ -10,18 +9,19 @@ import {
 } from "react-router-dom";
 
 import './index.css'
+import Card from "./components/ingredient/Card.tsx";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: <App />,
         errorElement: <ErrorPage />,
-
+        loader: rootLoader,
         children: [
             {
-                path: "contacts/:contactId",
-                element: <App />,
+                path: "ingredients/:ingredientId",
+                element: <Card />,
             },
         ]
     },
