@@ -1,7 +1,7 @@
 import './App.css'
 import {getAllIngredientsName} from "./services/IngredientService.ts"
 import {JSX} from "react";
-import {Link, Outlet, useLoaderData} from "react-router-dom";
+import {NavLink, Outlet, useLoaderData} from "react-router-dom";
 
 export async function loader(): Promise<List[]> {
     return await getAllIngredientsName();
@@ -22,13 +22,11 @@ const App = (): JSX.Element => {
                             <ul>
                                 {ingredients.map((ingredient: Ingredient) => (
                                     <li key={ingredient.id}>
-                                        <Link to={`ingredients/${ingredient.id}`}>
-                                            {ingredient.name ?
-                                                <>{ingredient.name}</>
-                                                :
-                                                <i>No Name</i>
-                                            }
-                                        </Link>
+                                        <NavLink to={`ingredients/${ingredient.id}`}
+                                                 className={({isActive, isPending}) =>
+                                                     isActive ? "active" : isPending ? "pending" : ""}>
+                                            {ingredient.name ? <>{ingredient.name}</> : <i>No Name</i>}
+                                        </NavLink>
                                     </li>
                                 ))}
                             </ul>
