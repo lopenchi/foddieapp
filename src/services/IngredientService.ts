@@ -1,5 +1,6 @@
 import {collection, doc, getDocs, getDoc} from "@firebase/firestore"
 import {database} from "../config/firebase.ts"
+import {Ingredient, List} from "../types.ts";
 
 const collectionRef = collection(database, "ingredients");
 
@@ -29,7 +30,7 @@ const getIngredientById = async (id: string): Promise<Ingredient> => {
     const docRef = doc(database, "ingredients", id);
 
     const docSnap = await getDoc(docRef);
-    return docSnap.data() as Ingredient;
+    return {...docSnap.data(), id: docSnap.id} as Ingredient;
 }
 
 export {getAllIngredients, getAllIngredientsName, getIngredientById}

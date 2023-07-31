@@ -2,11 +2,15 @@ import reactLogo from "../../assets/react.svg";
 import {JSX, useEffect, useState} from "react";
 import {getIngredientById} from "../../services/IngredientService.ts";
 import {useParams} from "react-router-dom";
+import {useFavoriteContext} from "../../contexts/FavoriteContext.tsx";
+import {AppContextType, Ingredient} from "../../types.ts";
 
 const Card = ({ingredientData}: { ingredientData?: Ingredient }): JSX.Element => {
 
     const [ingredient, setIngredient] = useState<Ingredient | undefined>(ingredientData);
     const {ingredientId} = useParams();
+
+    const favoriteContext: AppContextType = useFavoriteContext();
 
     useEffect(() => {
         if (ingredientId != null) {
@@ -49,6 +53,11 @@ const Card = ({ingredientData}: { ingredientData?: Ingredient }): JSX.Element =>
                     <div
                         className="pointer-events-auto rounded-md px-4 py-2 text-center font-medium bg-red-500 text-white hover:bg-red-400">Delete
                     </div>
+                    <button
+                        className="pointer-events-auto rounded-md px-4 py-2 text-center font-medium bg-yellow-500 text-white hover:bg-yellow-400"
+                        onClick={() => favoriteContext.addFavorite(ingredient)}
+                    >Favorite
+                    </button>
                 </div>
             </div>
         </>
