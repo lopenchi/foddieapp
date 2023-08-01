@@ -1,10 +1,11 @@
 import './App.css'
 import {getAllIngredientsName} from "./services/IngredientService.ts"
 import {JSX} from "react";
-import {NavLink, Outlet, useLoaderData} from "react-router-dom";
+import {Outlet, useLoaderData} from "react-router-dom";
 import {FavoriteContextProvider} from "./contexts/FavoriteContext.tsx";
 import {Ingredient, List} from "./types.ts";
 import Favorites from "./components/favorite/Favorites.tsx";
+import {SideBar} from "./components/sidebar/SideBar.tsx";
 
 export async function loader(): Promise<List[]> {
     return await getAllIngredientsName();
@@ -18,28 +19,7 @@ const App = (): JSX.Element => {
             <h1 className="text-5xl"> Foodie App </h1>
 
             <div className={"flex"}>
-                <div id="sidebar">
-                    <h1>React Router ingredients</h1>
-                    <nav>
-                        {ingredients.length ? (
-                            <ul>
-                                {ingredients.map((ingredient: Ingredient) => (
-                                    <li key={ingredient.id}>
-                                        <NavLink to={`ingredients/${ingredient.id}`}
-                                                 className={({isActive, isPending}) =>
-                                                     isActive ? "active" : isPending ? "pending" : ""}>
-                                            {ingredient.name ? <>{ingredient.name}</> : <i>No Name</i>}
-                                        </NavLink>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>
-                                <i>No ingredients</i>
-                            </p>
-                        )}
-                    </nav>
-                </div>
+                <SideBar ingredients={ingredients}/>
                 <div id="detail" className={"container flex items-center"}>
                     <Outlet/>
                 </div>
